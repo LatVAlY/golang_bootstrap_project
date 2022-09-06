@@ -1,7 +1,8 @@
 # Golang Bootstrap Project
 
 The Golang bootstrap project will help you set up your golang project and start focusing on the implementation in a seconds.
-the project has the followings:
+
+### the project has the followings:
 
 * main file
 * main function
