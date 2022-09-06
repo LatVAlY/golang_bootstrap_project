@@ -1,0 +1,1 @@
+# golang_bootstrap_project
