@@ -10,6 +10,7 @@ the project has the following:
 * example API endpoint for retrieving user with user service and repo as well models
 * environment variables with viper
 * output logs with logrus
+* mockery
 
 ---
 
@@ -24,3 +25,14 @@ go run golang_bootstrap_project/cmd/bootstrapProject
 1. Endpoint will be exposed :4000
 
 ---
+
+### Generate mocks
+access the directory where your service is and execure 
+```bash
+#  Run
+
+mockery --name=ServiceName
+
+```
+
+mock folder will be created for you with dedicated mock service
