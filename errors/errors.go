@@ -16,12 +16,12 @@ type ErrorHandlerDTO struct {
 	Message   string `json:"message" xml:"message" form:"message" query:"message"`
 }
 
-func TechnicalErrorNoSubWasGiven() BaseErrorReturn {
+func TechnicalErrorNoUserIdWasGiven() BaseErrorReturn {
 	return BaseErrorReturn{
 		Success: false,
 		Error: &BaseError{
 			Code:    "T003",
-			Message: "No sub was given in the query parameter",
+			Message: "No userId was given in the query parameter",
 		},
 	}
 }

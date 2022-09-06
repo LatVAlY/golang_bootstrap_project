@@ -5,8 +5,8 @@ import (
 	log "github.com/sirupsen/logrus"
 	"golang_bootstrap_project/errors"
 	"golang_bootstrap_project/service"
+	"golang_bootstrap_project/utils"
 	"net/http"
-	"strings"
 )
 
 type UserHandler interface {
@@ -15,13 +15,14 @@ type UserHandler interface {
 
 type UserHandlerImpl struct {
 	UserService service.UserService
+	StringUtils utils.StringUtils
 }
 
 func (u UserHandlerImpl) User(c echo.Context) error {
-	userId := strings.ToLower(c.Param("sub"))
+	userId := u.StringUtils.ConvertStringToLowerCase(c.Param("userId"))
 	if len(userId) == 0 {
-		log.Errorf("no sub was given")
-		return c.JSON(http.StatusUnprocessableEntity, errors.TechnicalErrorNoSubWasGiven())
+		log.Errorf("no userId was given")
+		return c.JSON(http.StatusUnprocessableEntity, errors.TechnicalErrorNoUserIdWasGiven())
 	}
 	user, userErr := u.UserService.FindActiveUserWithUserId(userId)
 	if userErr != nil {

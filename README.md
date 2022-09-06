@@ -1,1 +1,26 @@
-# golang_bootstrap_project
+# Golang Bootstrap Project
+
+The Golang bootstrap project with help you setup your golang project and start focusing on the implementation in a seconds.
+the project has the following:
+
+* project structure
+* main file
+* main function
+* API service with Echo framework
+* example API endpoint for retrieving user with user service and repo as well models
+* environment variables with viper
+* output logs with logrus
+
+---
+
+### Getting started
+
+The policy enforcer is written in a way so that it can serve multiple purposes. to get it to run you need to the following
+```bash
+#  Run
+go run golang_bootstrap_project/cmd/bootstrapProject
+
+```
+1. Endpoint will be exposed :4000
+
+---

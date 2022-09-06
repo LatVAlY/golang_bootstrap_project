@@ -9,13 +9,14 @@ import (
 	"golang_bootstrap_project/handler"
 	"golang_bootstrap_project/repository"
 	"golang_bootstrap_project/service"
+	"golang_bootstrap_project/utils"
 	"net/http"
 	"os"
 )
 
 func setGeneralDefaults() {
 	viper.AutomaticEnv()
-	viper.SetDefault(environment.ServicePort, 8080)
+	viper.SetDefault(environment.ServicePort, 4000)
 	viper.SetDefault(environment.LogLevel, 5)
 }
 
@@ -31,15 +32,20 @@ func main() {
 	e.GET("/health", func(c echo.Context) error {
 		return c.String(http.StatusOK, "OK")
 	})
-	userHandler := handler.UserHandlerImpl{UserService: service.UserServiceImpl{UserRepository: repository.UserRepoImpl{Db: nil}}}
+	userHandler := handler.UserHandlerImpl{
+		UserService: service.UserServiceImpl{
+			UserRepository: repository.UserRepoImpl{Db: nil},
+		},
+		StringUtils: utils.StringUtilsImpl{},
+	}
 
 	g := e.Group("/v1")
-	g.GET("/users/:sub", userHandler.User)
+	g.GET("/users/:userId", userHandler.User)
 	defer func(e *echo.Echo) {
 		closeErr := e.Close()
 		if closeErr != nil {
 			log.WithError(closeErr).Errorf("the connection to echo server could not be closed")
 		}
 	}(e)
-	e.Logger.Fatal(e.Start(fmt.Sprintf(":%d", viper.GetString(environment.ServicePort))))
+	e.Logger.Fatal(e.Start(fmt.Sprintf(":%d", viper.GetInt(environment.ServicePort))))
 }
