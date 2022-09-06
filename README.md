@@ -10,7 +10,7 @@ the project has the following:
 * example API endpoint for retrieving user with user service and repo as well models
 * environment variables with viper
 * output logs with logrus
-* mockery
+* mockery library for generating mock files
 
 ---
 
