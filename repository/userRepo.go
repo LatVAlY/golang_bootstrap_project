@@ -3,6 +3,7 @@ package repository
 import (
 	"fmt"
 	"github.com/jmoiron/sqlx"
+	"golang_bootstrap_project/helper"
 	"golang_bootstrap_project/model"
 )
 
@@ -11,7 +12,8 @@ type UserRepo interface {
 }
 
 type UserRepoImpl struct {
-	Db *sqlx.DB
+	Db         *sqlx.DB
+	UserHelper helper.UserHelper
 }
 
 func (r UserRepoImpl) FindActiveUserWithUserId(userId string) (*model.UserDTO, error) {
@@ -29,17 +31,7 @@ func (r UserRepoImpl) FindActiveUserWithUserId(userId string) (*model.UserDTO, e
 		return nil, err
 	}
 
-	transformedReturningUsers := r.transformToUserEntitlementDTO(users)
+	transformedReturningUsers := r.UserHelper.TransformToUserEntitlementDTO(users)
 
 	return transformedReturningUsers, nil
-}
-
-func (r UserRepoImpl) transformToUserEntitlementDTO(user model.UserDao) *model.UserDTO {
-	userDTO := &model.UserDTO{}
-	userDTO.UserId = user.UserId
-	userDTO.Id = user.Id
-	userDTO.FirstName = user.FirstName
-	userDTO.LastName = user.LastName
-	userDTO.Email = user.Email
-	return userDTO
 }

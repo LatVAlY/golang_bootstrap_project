@@ -7,6 +7,7 @@ import (
 	"github.com/spf13/viper"
 	"golang_bootstrap_project/environment"
 	"golang_bootstrap_project/handler"
+	"golang_bootstrap_project/helper"
 	"golang_bootstrap_project/repository"
 	"golang_bootstrap_project/service"
 	"golang_bootstrap_project/utils"
@@ -34,7 +35,10 @@ func main() {
 	})
 	userHandler := handler.UserHandlerImpl{
 		UserService: service.UserServiceImpl{
-			UserRepository: repository.UserRepoImpl{Db: nil},
+			UserRepository: repository.UserRepoImpl{
+				Db:         nil,
+				UserHelper: helper.UserHelperImpl{},
+			},
 		},
 		StringUtils: utils.StringUtilsImpl{},
 	}
